@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('operators')
 export default class Operator {
@@ -8,9 +8,15 @@ export default class Operator {
   @Column()
   name: string;
 
+  @Column()
+  email: string;
+
+  @Column()
+  password: string;
+
   @CreateDateColumn()
   created_at: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn()
   updated_at: Date;
 }

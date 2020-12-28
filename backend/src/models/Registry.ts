@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, UpdateDateColumn } from 'typeorm';
 import Operator from './Operator';
 
 @Entity('registries')
@@ -16,9 +16,12 @@ export default class Registry {
   @JoinColumn({ name: 'operator_id' })
   include: Operator;
 
-  @Column()
-  created_at: string;
-
   @Column('boolean', {default: false})
   checked: boolean;
+
+  @UpdateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }

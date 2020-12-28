@@ -21,18 +21,22 @@ export class registrationStatus1605465077298 implements MigrationInterface {
             {
               name: 'operator_id',
               type: 'integer',
-              isNullable: true,
-            },
-            {
-              name: 'created_at',
-              type: 'timestamp',
-              default: 'now()'
             },
             {
               name: 'checked',
               type: 'boolean',
               default: false,
-            }
+            },
+            {
+              name: 'created_at',
+              type: 'timestamp',
+              default: 'CURRENT_TIMESTAMP'
+            },
+            {
+              name: 'updated_at',
+              type: 'timestamp',
+              default: 'CURRENT_TIMESTAMP'
+            },
           ],
           foreignKeys: [
             {
@@ -40,7 +44,7 @@ export class registrationStatus1605465077298 implements MigrationInterface {
               columnNames: ['operator_id'],
               referencedTableName: 'operators',
               referencedColumnNames: ['id'],
-              onDelete: 'SET NULL',
+              onDelete: 'NO ACTION',
               onUpdate: 'CASCADE',
             }
           ]

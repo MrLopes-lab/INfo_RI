@@ -1,10 +1,11 @@
+import { query } from "express";
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class operators1605464455269 implements MigrationInterface {
+export class registriesPacks1609111887385 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
       await queryRunner.createTable(new Table({
-        name: "operators",
+        name: "registries_packs",
         columns: [
           {
             name: 'id',
@@ -19,6 +20,15 @@ export class operators1605464455269 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'operator_id',
+            type: 'integer',
+          },
+          {
+            name: 'concluded',
+            type: 'boolean',
+            default: false,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP'
@@ -28,11 +38,22 @@ export class operators1605464455269 implements MigrationInterface {
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP'
           },
+        ],
+        foreignKeys: [
+          {
+            name: 'OperatorPack',
+            columnNames: ['operator_id'],
+            referencedTableName: 'operators',
+            referencedColumnNames: ['id'],
+            onDelete: 'NO ACTION',
+            onUpdate: 'CASCADE',
+          }
         ]
-      }));
+      }))
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropTable('operators');
+      await queryRunner.dropTable('registries_packs');
     }
+
 }
