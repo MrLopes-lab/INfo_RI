@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity('operators')
+@Entity('users')
 export default class Operator {
   @PrimaryGeneratedColumn('increment')
   id: number;
