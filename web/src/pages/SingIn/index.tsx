@@ -1,8 +1,9 @@
-import React, { FormEvent, useRef, useState } from 'react';
+import React, { FormEvent, useRef, useState, useCallback } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import { Link } from 'react-router-dom';
+import * as Yup from 'yup';
+import getValidationErrors from '../../utils/getValidationError';
 
 import { Container, AnimationContent, Content, Background } from './styles';
 import logoImg from '../../assets/Logo.svg';
@@ -14,23 +15,22 @@ import Button from '../../components/Button';
 const SingIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const handleSubmit = useCallback(async (data: FormEvent) => {
+    try {
+      const schema = Yup.object().shape({
+        email: Yup.string().email('Insira um email valido').required('E-mail obrigatório'),
+        password: Yup.string().min(6, 'Minimo 6 dígitos'),
+      });
 
-  function handleCreateSession(e: FormEvent): void{
-    e.preventDefault();
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+    } catch (err) {
+      const errors = getValidationErrors(err);
 
-    api.post('/sessions', {
-      email,
-      password,
-    })
-    .then(() => {
-      alert('Aguarde...');
-    })
-    .catch(() => {
-      alert('Email ou senha inválidos!');
-    });
-  }
+      formRef.current?.setErrors(errors);
+    }
+  }, []);
 
   return (
     <Container>
@@ -38,26 +38,25 @@ const SingIn: React.FC = () => {
         <AnimationContent>
           <img src={logoImg} width="90%" alt="Pinheiro de Queiroz" />
 
-          <Form ref={formRef} onSubmit={handleCreateSession}>
+          <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu Logon</h1>
 
             <Input name="email" icon={FiMail} placeholder="Email" />
             <Input
-                type="password"
-                name="password"
-                icon={FiLock}
-                placeholder="Senha"
-              />
+              type="password"
+              name="password"
+              icon={FiLock}
+              placeholder="Senha"
+            />
 
-              <Button type="submit">Entrar</Button>
+            <Button type="submit">Entrar</Button>
 
-              <a href="forgot">Esqueci minha senha</a>
+            <a href="forgot">Esqueci minha senha</a>
           </Form>
         </AnimationContent>
       </Content>
       <Background />
     </Container>
-
 
     // <div id="page-landing">
     //   <div className="content-wrapper">
@@ -113,6 +112,6 @@ const SingIn: React.FC = () => {
     //   </div>
     // </div>
   );
-}
+};
 
 export default SingIn;
