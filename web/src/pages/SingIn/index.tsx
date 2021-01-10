@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, useState, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -8,29 +8,59 @@ import getValidationErrors from '../../utils/getValidationError';
 import { Container, AnimationContent, Content, Background } from './styles';
 import logoImg from '../../assets/Logo.svg';
 
-import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import { useToast } from '../../hooks/toast';
+
+interface SingInFormData {
+  email: string;
+  password: string;
+}
 
 const SingIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback(async (data: FormEvent) => {
-    try {
-      const schema = Yup.object().shape({
-        email: Yup.string().email('Insira um email valido').required('E-mail obrigatório'),
-        password: Yup.string().min(6, 'Minimo 6 dígitos'),
-      });
+  const { singIn } = useAuth();
+  const { addToast } = useToast();
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (err) {
-      const errors = getValidationErrors(err);
+  const handleSubmit = useCallback(
+    async (data: SingInFormData) => {
+      try {
+        formRef.current?.setErrors({});
 
-      formRef.current?.setErrors(errors);
-    }
-  }, []);
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('Email obrigatório')
+            .email('Insira um email valido'),
+          password: Yup.string().required('Senha obrigatória'),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        await singIn({
+          email: data.email,
+          password: data.password,
+        });
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+
+          formRef.current?.setErrors(errors);
+        }
+
+        addToast({
+          type: 'error',
+          title: 'Erro na autenticação',
+          description: 'Ocorreu um erro ao fazer login!',
+        });
+      }
+    },
+    [singIn, addToast],
+  );
 
   return (
     <Container>
@@ -57,60 +87,6 @@ const SingIn: React.FC = () => {
       </Content>
       <Background />
     </Container>
-
-    // <div id="page-landing">
-    //   <div className="content-wrapper">
-    //     <div className="logo">
-    //       <img src={logoImg} alt="Pinheiro de Queiroz" />
-    //     </div>
-
-    //     <div className="main-text-grid">
-    //       <main>
-    //         <h1>Informatização do Registro de Imoveis</h1>
-    //       </main>
-    //     </div>
-
-    //     <div className="location-grid">
-    //       <div className="location-text">
-    //         <strong>Conceição do Araguaia</strong>
-    //         <span>Pará</span>
-    //       </div>
-    //       <div className="location-icon">
-    //         <FiMapPin color="#ffffff" size={56} />
-    //       </div>
-    //     </div>
-
-    //     <div className="user-form-grid">
-    //       <form className="user-form" onSubmit={handleCreateSession}>
-    //         <div className="input-block">
-    //           <label htmlFor="name">Nome</label>
-    //           <input
-    //             id="name"
-    //             type="text"
-    //             value={email}
-    //             onChange={e => setEmail(e.target.value)}
-    //           />
-    //         </div>
-
-    //         <div className="input-block">
-    //           <label htmlFor="name">Senha</label>
-    //           <input
-    //             id="password"
-    //             type="password"
-    //             value={password}
-    //             onChange={e => setPassword(e.target.value)}
-    //           />
-    //         </div>
-
-    //         <div className="enter-app-grid">
-    //       <button type="submit" className="enter-app">
-    //         <FiArrowRight color="#5C8599" size={36}  />
-    //       </button>
-    //     </div>
-    //       </form>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 
