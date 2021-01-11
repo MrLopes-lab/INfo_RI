@@ -39,7 +39,7 @@ export const AnimationContent = styled.div`
   flex-direction: column;
   align-items: center;
 
-  animation: ${appearFromLeft} 2s;
+  animation: ${appearFromLeft} 1s;
 
   form {
     margin: 80px 0;

@@ -1,19 +1,17 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
+import Dashboard from '../pages/Dashboard';
 
-import AppProvider from '../hooks';
+import Route from './Route';
 
 import SingIn from '../pages/SingIn';
 
 function Routes(): JSX.Element {
   return (
-    <BrowserRouter>
-      <Switch>
-        <AppProvider>
-          <Route path="/" exact component={SingIn} />
-        </AppProvider>
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route path="/" exact component={SingIn} />
+      <Route path="/dashboard" component={Dashboard} isPrivate />
+    </Switch>
   );
 }
 
