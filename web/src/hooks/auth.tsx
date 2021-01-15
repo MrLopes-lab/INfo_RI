@@ -48,6 +48,8 @@ const AuthProvider: React.FC = ({ children }) => {
   const singOut = useCallback(() => {
     localStorage.removeItem('@RiInfo:token');
     localStorage.removeItem('@RiInfo:user');
+
+    setData({} as AuthState);
   }, []);
 
   return (
