@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  border-left: 350px;
+  margin-left: 200px;
 `;
 
 export const Content = styled.main`
-  display: block;
-  justify-content: center;
-  width: 800px;
+  background: red;
+  max-width: 90rem;
+  width: 100%;
+  border-radius: 0.8rem;
+  margin: -3.2rem auto 5.2rem;
+  padding-top: 6.4rem;
   overflow: hidden;
 `;

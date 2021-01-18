@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from '../../components/Card';
-import SideBar from '../../components/SideBar';
+import PageHeader from '../../components/PageHeader';
+import SideBar from '../../components/Sidebar';
 
 import { Container, Content } from './styles';
 
@@ -8,6 +9,8 @@ const Dashboard: React.FC = () => {
   return (
     <Container>
       <SideBar />
+
+      <PageHeader title="" description="" />
 
       <Content>
         <Card>

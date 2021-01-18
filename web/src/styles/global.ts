@@ -15,7 +15,7 @@ body {
 }
 
 body, input, button {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Archivo', sans-serif;
   font-size: 16px;
 }
 
