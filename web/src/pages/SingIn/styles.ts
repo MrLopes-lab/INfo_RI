@@ -9,7 +9,9 @@ export const Container = styled.div`
   display: flex;
   align-items: stretch;
 
-  background: linear-gradient(329.54deg, #c2e9fb 0%, #a1c4fd 100%);
+  background: #f5f5f5;
+
+  /* background: linear-gradient(329.54deg, #f5f5f5 0%, #060b26 100%); */
 `;
 
 export const Content = styled.div`

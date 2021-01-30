@@ -1,4 +1,6 @@
-import { Router } from 'express';
+import { response, Router } from 'express';
+import { getRepository } from 'typeorm';
+import Operator from '../models/Operator';
 import CreateOperatorService from '../services/CreateOperator';
 
 const operatorsRouter = Router();
@@ -19,5 +21,16 @@ operatorsRouter.post('/', async (request, response) => {
   }
 
 });
+
+operatorsRouter.get('/', async (request, response) => {
+  const operatorRepository = getRepository(Operator);
+
+  try {
+    const operators = await operatorRepository.find();
+    return response.json(operators);
+  } catch (error) {
+    return response.status(400).json(error)
+  }
+})
 
 export default operatorsRouter;

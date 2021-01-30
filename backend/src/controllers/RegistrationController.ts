@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import RegistryView from '../views/Registry_view';
 
 import Registry from '../models/Registry';
 import { getRepository } from 'typeorm';

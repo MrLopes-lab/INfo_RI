@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/auth';
 import { SidebarData } from './sidebarData';
 
+import logoIcon from '../../assets/Icon.svg';
+
 import { Container, Nav } from './styles';
 
 const SideBar: React.FC = () => {
@@ -16,7 +18,13 @@ const SideBar: React.FC = () => {
   return (
     <Container>
       <Nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-        <ul className="nav-menu-item">
+        <div>
+          <Link to="/">
+            <img src={logoIcon} alt="Pinheiro de Queiroz" />
+          </Link>
+        </div>
+
+        <ul>
           {SidebarData.map((item, index) => {
             return (
               <li key={index} className={item.cName}>
@@ -27,12 +35,10 @@ const SideBar: React.FC = () => {
               </li>
             );
           })}
-          <li className="navbar-singOut">
-            <button type="button" onClick={singOut}>
-              <FiIcons.FiPower size={24} color="#fff" />
-            </button>
-          </li>
         </ul>
+        <button type="button" onClick={singOut}>
+          <FiIcons.FiPower size={24} color="#fff" />
+        </button>
       </Nav>
     </Container>
   );

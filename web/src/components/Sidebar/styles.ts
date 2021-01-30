@@ -4,13 +4,19 @@ export const Container = styled.div`
   flex: auto;
 `;
 
-export const PageHeader = styled.div`
-  background-color: #060b26;
-  display: flex;
-  flex-direction: column;
-`;
-
 export const Nav = styled.nav`
+  flex-flow: row wrap;
+  display: flex;
+
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 160px;
+    background: #f5f5f5;
+  }
+
   .menu-bars {
     margin-left: 2rem;
     font-size: 2rem;
@@ -18,6 +24,7 @@ export const Nav = styled.nav`
   }
   &.nav-menu {
     background-color: #060b26;
+    /* background: #f5f5f5; */
     width: 200px;
     height: 100vh;
     display: flex;
@@ -55,25 +62,12 @@ export const Nav = styled.nav`
     background-color: #12afcb;
   }
 
-  .nav-menu-items {
-    width: 100%;
-  }
-
   .navbar-toggle {
     background-color: #060b26;
     width: 100%;
     height: 80px;
     display: flex;
     justify-content: start;
-    align-items: center;
-  }
-
-  .navbar-singOut {
-    width: 100%;
-    height: 80px;
-    display: flex;
-    margin-top: auto;
-    justify-content: center;
     align-items: center;
   }
 

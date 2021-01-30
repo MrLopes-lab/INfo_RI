@@ -2,11 +2,12 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   width: 100%;
+  height: 160px;
 
   display: flex;
   flex-direction: column;
 
-  background: #060b26;
+  background: #00d54c;
 `;
 
 export const TopBarContainer = styled.div`
@@ -15,7 +16,6 @@ export const TopBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: green;
   padding: 1.6rem 0;
 
   a {

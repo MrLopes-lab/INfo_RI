@@ -18,9 +18,10 @@ const PageHeader: React.FC<PageHeaderPros> = ({
   return (
     <Container>
       <TopBarContainer>
-        <Link to="/">
+        {/* <Link to="/">
           <img src={logoIcon} alt="Pinheiro de Queiroz" />
-        </Link>
+        </Link> */}
+        <h1>Info RI</h1>
         <FiIcons.FiCodesandbox />
       </TopBarContainer>
 

@@ -21,19 +21,68 @@ export const AddRegistriesTable = styled.section`
   table {
     width: 100%;
     border-spacing: 0;
+    border-bottom: 2px solid black;
   }
 
-  td {
-    padding: 20px 32px;
+  th {
+    padding: 20px;
     border: 0;
     background: #fff;
     font-size: 16px;
     font-weight: normal;
     color: #969cb3;
-    border-bottom: 2px solid black;
+
+    span {
+      font-size: 40px;
+      font-weight: bold;
+    }
 
     button {
       margin-top: 0;
     }
+  }
+`;
+
+export const ContainerRegisterToast = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+
+  > div {
+    margin: 4px 8px;
+  }
+`;
+
+export const RegisterToast = styled.div`
+  width: 100px;
+
+  background: #ebf8ff;
+  color: #3172b7;
+
+  padding: 8px;
+
+  border-radius: 10px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > svg {
+    margin: 0 12px 0 0;
+  }
+
+  p {
+    margin-top: 4px;
+    font-size: 14px;
+    opacity: 0.8;
+    line-height: 20px;
+  }
+
+  button {
+    opacity: 0.6;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    margin-left: 5px;
   }
 `;
